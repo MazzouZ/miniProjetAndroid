@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Controllers.Fournisseur.AddFournisseur">
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:text="Ajouter un Fournisseur"
+        android:textAlignment="center" />
+
+    <EditText
+        android:id="@+id/nomAdd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Nom"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/adresseAdd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Adresse"
+        android:inputType="text" />
+
+    <EditText
+        android:id="@+id/emailAdd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Email"
+        android:inputType="textEmailAddress" />
+
+    <EditText
+        android:id="@+id/telephoneAdd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Telephone"
+        android:inputType="text|numberDecimal" />
+
+    <Button
+        android:id="@+id/Ajouter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Ajouter" />
+</LinearLayout>

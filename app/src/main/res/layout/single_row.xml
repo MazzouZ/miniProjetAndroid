@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:padding="15dp" android:layout_height="112dp">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="257dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="5dp">
+
+            <TextView
+                android:id="@+id/ListNom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nom"
+                android:textColor="@color/colorPrimaryDark" />
+
+            <TextView
+                android:id="@+id/listEmail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Email" />
+
+            <TextView
+                android:id="@+id/ListAdresse"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Adresse" />
+
+            <TextView
+                android:id="@+id/listTelephone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Telephone" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+</LinearLayout>
