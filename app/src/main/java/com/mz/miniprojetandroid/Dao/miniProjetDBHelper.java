@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import com.mz.miniprojetandroid.Models.Fournisseur;
 import com.mz.miniprojetandroid.Models.Medicament;
+import com.mz.miniprojetandroid.Models.User;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -32,6 +33,12 @@ public class miniProjetDBHelper extends SQLiteOpenHelper {
     public static final String Medicament_quantite = "quantite";
     public static final String Medicament_date = "date";
 
+    public static final String User_TABLE_NAME = "user";
+    public static final String User_id = "id";
+    public static final String User_login = "login";
+    public static final String User_password = "password";
+
+    private SQLiteDatabase dbUser ;
 
     public miniProjetDBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -53,8 +60,15 @@ public class miniProjetDBHelper extends SQLiteOpenHelper {
                 Medicament_prix + " TEXT NOT NULL, " +
                 Medicament_quantite + " TEXT NOT NULL, " +
                 Medicament_date + " TEXT NOT NULL);";
+
+        String queryU = " CREATE TABLE " + User_TABLE_NAME + " (" +
+                 User_id + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                User_login + " TEXT NOT NULL, " +
+                User_password + " TEXT NOT NULL);";
+
         db.execSQL(queryF);
         db.execSQL(queryM);
+        db.execSQL(queryU);
 
     }
 
@@ -62,6 +76,7 @@ public class miniProjetDBHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + Fournisseur_TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + Medicament_TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + User_TABLE_NAME);
         this.onCreate(db);
     }
 
@@ -233,5 +248,34 @@ public class miniProjetDBHelper extends SQLiteOpenHelper {
             return false;
         Toast.makeText(context, "modifié avec succes.", Toast.LENGTH_SHORT).show();
         return true;
+    }
+    public boolean saveNewUser(User user) {
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(User_login, user.getLogin());
+        values.put(User_password, user.getPassword());
+
+        long result = db.insert(User_TABLE_NAME, null, values);
+        db.close();
+        return result != -1;
+    }
+
+    public boolean checkUser(User u)
+    {
+        Cursor c=null;
+        try {
+            dbUser = this.getReadableDatabase();
+            String sql="select * from user where login="+u.getLogin()+" and password="+u.getPassword()+"'";
+            c = dbUser.rawQuery(sql,null);
+
+            if(c.getCount() > 0)
+                return true;
+            else
+                return false;
+        }
+        finally {
+            c.close();
+        }
     }
 }
