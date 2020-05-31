@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.widget.Toast;
 
 import com.mz.miniprojetandroid.Models.Fournisseur;
+import com.mz.miniprojetandroid.Models.Medicament;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -23,6 +24,14 @@ public class miniProjetDBHelper extends SQLiteOpenHelper {
     public static final String Fournisseur_adresse = "adresse";
     public static final String Fournisseur_telephone = "telephone";
 
+    public static final String Medicament_TABLE_NAME = "medicament";
+    public static final String Medicament_id = "id";
+    public static final String Medicament_libelle = "libelle";
+    public static final String Medicament_categorie = "categorie";
+    public static final String Medicament_prix = "prix";
+    public static final String Medicament_quantite = "quantite";
+    public static final String Medicament_date = "date";
+
 
     public miniProjetDBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -30,19 +39,29 @@ public class miniProjetDBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL(" CREATE TABLE " + Fournisseur_TABLE_NAME + " (" +
+        String queryF = " CREATE TABLE " + Fournisseur_TABLE_NAME + " (" +
                 Fournisseurid + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 Fournisseur_name + " TEXT NOT NULL, " +
                 Fournisseur_email + " TEXT NOT NULL, " +
                 Fournisseur_adresse + " TEXT NOT NULL, " +
-                Fournisseur_telephone + " TEXT NOT NULL);"
-        );
+                Fournisseur_telephone + " TEXT NOT NULL);";
+
+        String queryM = " CREATE TABLE " + Medicament_TABLE_NAME + " (" +
+                Medicament_id + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                Medicament_libelle + " TEXT NOT NULL, " +
+                Medicament_categorie + " TEXT NOT NULL, " +
+                Medicament_prix + " TEXT NOT NULL, " +
+                Medicament_quantite + " TEXT NOT NULL, " +
+                Medicament_date + " TEXT NOT NULL);";
+        db.execSQL(queryF);
+        db.execSQL(queryM);
 
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + Fournisseur_TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + Medicament_TABLE_NAME);
         this.onCreate(db);
     }
 
@@ -123,6 +142,93 @@ public class miniProjetDBHelper extends SQLiteOpenHelper {
         String where = "id=?";
         String[] whereArgs = new String[]{String.valueOf(fournisseurId)};
         long result = db.update(Fournisseur_TABLE_NAME, values, where, whereArgs);
+        if (result == -1)
+            return false;
+        Toast.makeText(context, "modifié avec succes.", Toast.LENGTH_SHORT).show();
+        return true;
+    }
+
+    public boolean saveNewMedicament(Medicament medicament) {
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(Medicament_libelle, medicament.getLibelle());
+        values.put(Medicament_categorie, medicament.getCategorie());
+        values.put(Medicament_prix,medicament.getPrix());
+        values.put(Medicament_quantite,medicament.getQuantite());
+        values.put(Medicament_date,medicament.getDate());
+
+        long result = db.insert(Medicament_TABLE_NAME, null, values);
+        db.close();
+        return result != -1;
+    }
+
+    public List<Medicament> medicamentList(String filter) {
+        String query;
+        if (filter.equals("")) {
+            query = "SELECT  * FROM " + Medicament_TABLE_NAME;
+        } else {
+            query = "SELECT  * FROM " + Medicament_TABLE_NAME + " ORDER BY " + filter;
+        }
+
+        List<Medicament> medicamentLinkedList = new LinkedList<>();
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+        Medicament medicament;
+        if (cursor.moveToFirst()) {
+            do {
+                medicament = new Medicament();
+                medicament.setId((int) cursor.getLong(cursor.getColumnIndex(Medicament_id)));
+                medicament.setLibelle(cursor.getString(cursor.getColumnIndex(Medicament_libelle)));
+                medicament.setCategorie(cursor.getString(cursor.getColumnIndex(Medicament_categorie)));
+                medicament.setPrix(cursor.getString(cursor.getColumnIndex(Medicament_prix)));
+                medicament.setQuantite(cursor.getString(cursor.getColumnIndex(Medicament_quantite)));
+                medicament.setDate(cursor.getString(cursor.getColumnIndex(Medicament_date)));
+
+                medicamentLinkedList.add(medicament);
+            } while (cursor.moveToNext());
+        }
+        return medicamentLinkedList;
+    }
+    public Medicament getMedicament(long id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "SELECT  * FROM " + Medicament_TABLE_NAME + " WHERE id=" + id;
+        Cursor cursor = db.rawQuery(query, null);
+
+        Medicament medicament = new Medicament();
+        if (cursor.getCount() > 0) {
+            cursor.moveToFirst();
+            medicament.setLibelle(cursor.getString(cursor.getColumnIndex(Medicament_libelle)));
+            medicament.setCategorie(cursor.getString(cursor.getColumnIndex(Medicament_categorie)));
+            medicament.setPrix(cursor.getString(cursor.getColumnIndex(Medicament_prix)));
+            medicament.setQuantite(cursor.getString(cursor.getColumnIndex(Medicament_quantite)));
+            medicament.setDate(cursor.getString(cursor.getColumnIndex(Medicament_date)));
+
+        }
+        return medicament;
+    }
+    public boolean deleteMedicamentRecord(long id, Context context) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String where = "id=?";
+        String[] whereArgs = new String[]{String.valueOf(id)};
+        long result = db.delete(Medicament_TABLE_NAME, where, whereArgs);
+        if (result == -1)
+            return false;
+        Toast.makeText(context, "Supprimer avec succes.", Toast.LENGTH_SHORT).show();
+        return true;
+    }
+    public boolean updateMedicamentRecord(long medicamentId, Context context, Medicament updatedmedicament) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(Medicament_libelle, updatedmedicament.getLibelle());
+        values.put(Medicament_categorie, updatedmedicament.getCategorie());
+        values.put(Medicament_prix, updatedmedicament.getPrix());
+        values.put(Medicament_quantite, updatedmedicament.getQuantite());
+        values.put(Medicament_date, updatedmedicament.getDate());
+
+        String where = "id=?";
+        String[] whereArgs = new String[]{String.valueOf(medicamentId)};
+        long result = db.update(Medicament_TABLE_NAME, values, where, whereArgs);
         if (result == -1)
             return false;
         Toast.makeText(context, "modifié avec succes.", Toast.LENGTH_SHORT).show();

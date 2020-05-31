@@ -9,9 +9,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Controllers.Fournisseur.UpdateFournisseur"></activity>
+        <activity android:name=".Controllers.Fournisseur.Fournisseurs"></activity>
+        <activity android:name=".Controllers.Medicament.UpdateMedicament" />
+        <activity android:name=".Controllers.Medicament.AddMedicament" />
+        <activity android:name=".Controllers.Medicament.Medicaments" />
+        <activity android:name=".Controllers.Fournisseur.UpdateFournisseur" />
         <activity android:name=".Controllers.Fournisseur.AddFournisseur" />
-        <activity android:name=".Controllers.Fournisseur.Fournisseurs">
+        <activity android:name=".Controllers.Navigateur">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

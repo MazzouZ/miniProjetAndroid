@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Controllers.Medicament.AddMedicament">
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:text="Ajouter un Medicament"
+        android:textAlignment="center" />
+
+    <EditText
+        android:id="@+id/libelleAdd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Libelle"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/categorieAdd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Categorie"
+        android:inputType="text" />
+
+    <EditText
+        android:id="@+id/prixAdd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Prix Unitaire"
+        android:inputType="text|numberDecimal" />
+
+    <EditText
+        android:id="@+id/quantiteAdd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Quantite"
+        android:inputType="text|numberDecimal" />
+
+    <EditText
+        android:id="@+id/dateAdd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Date"
+        android:inputType="text" />
+
+    <Button
+        android:id="@+id/Ajouter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Ajouter" />
+</LinearLayout>

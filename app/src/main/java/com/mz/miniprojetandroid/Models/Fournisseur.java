@@ -1,11 +1,14 @@
 package com.mz.miniprojetandroid.Models;
 
+import java.util.ArrayList;
+
 public class Fournisseur {
     private int id;
     private String nom;
     private String email;
     private String adresse;
     private String telephone;
+    private ArrayList<Medicament> medicaments;
 
     public Fournisseur( String nom, String email, String adresse, String telephone) {
         this.nom = nom;
@@ -15,6 +18,10 @@ public class Fournisseur {
     }
 
     public Fournisseur() {
+    }
+
+    public ArrayList<Medicament> getMedicaments() {
+        return medicaments;
     }
 
     public int getId() {

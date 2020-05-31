@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Controllers.Medicament.UpdateMedicament">
+
+    <TextView
+        android:id="@+id/title2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:text="Modifier un Medicament"
+        android:textAlignment="center" />
+
+    <EditText
+        android:id="@+id/libelleUpdate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Libelle"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/categorieUpdate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Categorie"
+        android:inputType="text" />
+
+    <EditText
+        android:id="@+id/prixUpdate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Prix"
+        android:inputType="text|numberDecimal" />
+
+    <EditText
+        android:id="@+id/quantiteUpdate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Quantite"
+        android:inputType="text|numberDecimal" />
+
+    <EditText
+        android:id="@+id/dateUpdate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Date"
+        android:inputType="text" />
+
+    <Button
+        android:id="@+id/modifier"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Modifier" />
+
+</LinearLayout>
