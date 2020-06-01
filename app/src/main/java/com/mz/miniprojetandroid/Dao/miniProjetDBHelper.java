@@ -266,13 +266,10 @@ public class miniProjetDBHelper extends SQLiteOpenHelper {
         Cursor c=null;
         try {
             dbUser = this.getReadableDatabase();
-            String sql="select * from user where login="+u.getLogin()+" and password="+u.getPassword()+"'";
+            String sql="select * from user where login='"+u.getLogin()+"' and password='"+u.getPassword()+"'";
             c = dbUser.rawQuery(sql,null);
 
-            if(c.getCount() > 0)
-                return true;
-            else
-                return false;
+            return c.getCount() > 0;
         }
         finally {
             c.close();

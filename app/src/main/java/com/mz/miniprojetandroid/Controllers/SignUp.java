@@ -31,19 +31,16 @@ public class SignUp extends AppCompatActivity {
         loginRegister = (EditText) findViewById(R.id.registerlogin);
         passwordRegister  = (EditText) findViewById(R.id.registerpassword);
         pass = (EditText) findViewById(R.id.pass);
-
         signUp = (Button) findViewById(R.id.signUp);
         redirectLogin = (Button) findViewById(R.id.redirectLogin);
-
-        final String RegisterLogin = loginRegister.getText().toString().trim();
-        final String RegisterPassword = passwordRegister.getText().toString().trim();
-        final String Pass = pass.getText().toString().trim();
-
 
         signUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "user ="+RegisterLogin+" "+Pass, Toast.LENGTH_SHORT).show();
+                String RegisterLogin = loginRegister.getText().toString().trim();
+                String RegisterPassword = passwordRegister.getText().toString().trim();
+                String Pass = pass.getText().toString().trim();
+
                 if(RegisterLogin.isEmpty() || RegisterPassword.isEmpty() || Pass.isEmpty()) {
                     Toast.makeText(getApplicationContext(), "Veuillez remplir tous les champs", Toast.LENGTH_SHORT).show();
                     loginRegister.setText("");

@@ -29,9 +29,6 @@ public class MainActivity extends AppCompatActivity {
         signIn = findViewById(R.id.signIn);
         redirectRegister = findViewById(R.id.redirectRegister);
 
-        final String Login = login.getText().toString();
-        final String Password = password.getText().toString();
-
         redirectRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -42,13 +39,15 @@ public class MainActivity extends AppCompatActivity {
         signIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String Login = login.getText().toString();
+                String Password = password.getText().toString();
                 if(Login.isEmpty() || Password.isEmpty()) {
                     Toast.makeText(getApplicationContext(), "Veuillez remplir tous les champs", Toast.LENGTH_SHORT).show();
                     login.setText("");
                     password.setText("");
                 }
                 else{
-                    if(db.checkUser(new User(Login,Password))== true)
+                    if(db.checkUser(new User(Login, Password)))
                         startActivity(new Intent(getApplicationContext(), Navigateur.class));
                     else
                         Toast.makeText(getApplicationContext(), "Erreur404", Toast.LENGTH_SHORT).show();
