@@ -32,6 +32,7 @@ public class miniProjetDBHelper extends SQLiteOpenHelper {
     public static final String Medicament_prix = "prix";
     public static final String Medicament_quantite = "quantite";
     public static final String Medicament_date = "date";
+    public static final String Medicament_four = "fournisseur";
 
     public static final String User_TABLE_NAME = "user";
     public static final String User_id = "id";
@@ -59,16 +60,19 @@ public class miniProjetDBHelper extends SQLiteOpenHelper {
                 Medicament_categorie + " TEXT NOT NULL, " +
                 Medicament_prix + " TEXT NOT NULL, " +
                 Medicament_quantite + " TEXT NOT NULL, " +
-                Medicament_date + " TEXT NOT NULL);";
+                Medicament_date + " TEXT NOT NULL," +
+                Medicament_four + " INTEGER NOT NULL," +
+                " FOREIGN KEY ("+ Medicament_four+ ") REFERENCES fournisseur(id) ON DELETE CASCADE);";
 
         String queryU = " CREATE TABLE " + User_TABLE_NAME + " (" +
                  User_id + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 User_login + " TEXT NOT NULL, " +
                 User_password + " TEXT NOT NULL);";
 
+        db.execSQL(queryU);
         db.execSQL(queryF);
         db.execSQL(queryM);
-        db.execSQL(queryU);
+
 
     }
 
@@ -172,6 +176,7 @@ public class miniProjetDBHelper extends SQLiteOpenHelper {
         values.put(Medicament_prix,medicament.getPrix());
         values.put(Medicament_quantite,medicament.getQuantite());
         values.put(Medicament_date,medicament.getDate());
+        values.put(Medicament_four,medicament.getFournisseur_id());
 
         long result = db.insert(Medicament_TABLE_NAME, null, values);
         db.close();
@@ -240,6 +245,7 @@ public class miniProjetDBHelper extends SQLiteOpenHelper {
         values.put(Medicament_prix, updatedmedicament.getPrix());
         values.put(Medicament_quantite, updatedmedicament.getQuantite());
         values.put(Medicament_date, updatedmedicament.getDate());
+        values.put(Medicament_four,updatedmedicament.getFournisseur_id());
 
         String where = "id=?";
         String[] whereArgs = new String[]{String.valueOf(medicamentId)};
@@ -273,6 +279,15 @@ public class miniProjetDBHelper extends SQLiteOpenHelper {
         }
         finally {
             c.close();
+        }
+    }
+
+    @Override
+    public void onOpen(SQLiteDatabase db) {
+        super.onOpen(db);
+        if (!db.isReadOnly()) {
+            // Enable foreign key constraints
+            db.execSQL("PRAGMA foreign_keys=ON;");
         }
     }
 }

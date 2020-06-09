@@ -5,8 +5,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 import android.widget.Toast;
 
 import com.mz.miniprojetandroid.Controllers.Fournisseur.Fournisseurs;
@@ -16,6 +19,9 @@ import com.mz.miniprojetandroid.Models.Fournisseur;
 import com.mz.miniprojetandroid.Models.Medicament;
 import com.mz.miniprojetandroid.R;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class UpdateMedicament extends AppCompatActivity {
 
     private EditText medicamentLibelle;
@@ -24,8 +30,10 @@ public class UpdateMedicament extends AppCompatActivity {
     private EditText medicamentQuantite;
     private EditText medicamentDate;
     private Button mUpdateBtn;
+    private Spinner spinner;
     private miniProjetDBHelper dbHelper;
     private long receivedMedicamentId;
+    private String filter="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +46,7 @@ public class UpdateMedicament extends AppCompatActivity {
         medicamentQuantite = (EditText) findViewById(R.id.quantiteUpdate);
         medicamentDate = (EditText) findViewById(R.id.dateUpdate);
         mUpdateBtn = (Button) findViewById(R.id.modifier);
+        spinner = findViewById(R.id.spinnerUpdate);
         dbHelper = new miniProjetDBHelper(UpdateMedicament.this);
 
         try {
@@ -52,6 +61,16 @@ public class UpdateMedicament extends AppCompatActivity {
         medicamentPrix.setText(queriedMedicament.getPrix());
         medicamentQuantite.setText(queriedMedicament.getQuantite());
         medicamentDate.setText(queriedMedicament.getDate());
+        /*Fournisseur f = dbHelper.getFournisseur(queriedMedicament.getFournisseur_id());
+        String fr = f.getNom();
+        spinner.setPrompt(fr);*/
+        List<Fournisseur> list = new ArrayList<Fournisseur>();
+
+        list = dbHelper.fournisseurList(filter);
+
+        ArrayAdapter<Fournisseur> adapter = new ArrayAdapter<Fournisseur>(getApplicationContext(),android.R.layout.simple_spinner_item,list);
+
+        spinner.setAdapter(adapter);
 
         mUpdateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,6 +87,8 @@ public class UpdateMedicament extends AppCompatActivity {
         String prix = medicamentPrix.getText().toString().trim();
         String quantite = medicamentQuantite.getText().toString().trim();
         String date = medicamentDate.getText().toString().trim();
+        Fournisseur four = (Fournisseur) spinner.getSelectedItem();
+        int fournisseurId = four.getId();
         dbHelper = new miniProjetDBHelper(UpdateMedicament.this);
 
         if (libelle.isEmpty()) {
@@ -89,7 +110,7 @@ public class UpdateMedicament extends AppCompatActivity {
         if (date.isEmpty()) {
             Toast.makeText(this, "La date est obligatoire", Toast.LENGTH_SHORT).show();
         }
-        Medicament updatedMedicament = new Medicament(libelle,categorie,prix,quantite,date);
+        Medicament updatedMedicament = new Medicament(libelle,categorie,prix,quantite,date,fournisseurId);
 
         dbHelper.updateMedicamentRecord(receivedMedicamentId, UpdateMedicament.this, updatedMedicament);
         goBackHome();

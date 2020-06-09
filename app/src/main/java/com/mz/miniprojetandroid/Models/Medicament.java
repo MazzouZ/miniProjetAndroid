@@ -7,16 +7,18 @@ public class Medicament {
     private String prix;
     private String quantite;
     private String date;
+    private int fournisseur_id;
 
     public Medicament() {
     }
 
-    public Medicament(String libelle, String categorie, String prix, String quantite, String date) {
+    public Medicament(String libelle, String categorie, String prix, String quantite, String date, int fournisseur_id) {
         this.libelle = libelle;
         this.categorie = categorie;
         this.prix = prix;
         this.quantite = quantite;
         this.date = date;
+        this.fournisseur_id = fournisseur_id;
     }
 
     public int getId() {
@@ -67,15 +69,24 @@ public class Medicament {
         this.date = date;
     }
 
+    public int getFournisseur_id() {
+        return fournisseur_id;
+    }
+
+    public void setFournisseur_id(int fournisseur_id) {
+        this.fournisseur_id = fournisseur_id;
+    }
+
     @Override
     public String toString() {
         return "Medicament{" +
                 "id=" + id +
                 ", libelle='" + libelle + '\'' +
                 ", categorie='" + categorie + '\'' +
-                ", prix=" + prix +
-                ", quantite=" + quantite +
+                ", prix='" + prix + '\'' +
+                ", quantite='" + quantite + '\'' +
                 ", date='" + date + '\'' +
+                ", fournisseur_id=" + fournisseur_id +
                 '}';
     }
 }
