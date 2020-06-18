@@ -16,6 +16,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
 import com.mz.miniprojetandroid.Adapters.FournisseurAdapter;
+import com.mz.miniprojetandroid.Controllers.Navigateur;
 import com.mz.miniprojetandroid.Dao.miniProjetDBHelper;
 import com.mz.miniprojetandroid.R;
 
@@ -86,6 +87,9 @@ public class Fournisseurs extends AppCompatActivity {
             case R.id.addMenu:
                 goToAddUserActivity();
                 return true;
+            case R.id.NvMenu:
+                goToANvActivity();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -93,6 +97,10 @@ public class Fournisseurs extends AppCompatActivity {
 
     private void goToAddUserActivity(){
         Intent intent = new Intent(Fournisseurs.this, AddFournisseur.class);
+        startActivity(intent);
+    }
+    private void goToANvActivity(){
+        Intent intent = new Intent(Fournisseurs.this, Navigateur.class);
         startActivity(intent);
     }
 

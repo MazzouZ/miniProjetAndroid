@@ -10,6 +10,12 @@
         app:showAsAction="always" />
 
     <item
+        android:id="@+id/NvMenu"
+        android:title="Menu"
+        android:icon="@drawable/baseline_reorder_black_18dp"
+        app:showAsAction="always"/>
+
+    <item
         android:id="@+id/addMenu"
         android:title="Add"
         android:icon="@android:drawable/ic_menu_add"

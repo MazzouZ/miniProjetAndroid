@@ -16,6 +16,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
 import com.mz.miniprojetandroid.Adapters.MedicamentAdapter;
+import com.mz.miniprojetandroid.Controllers.Navigateur;
 import com.mz.miniprojetandroid.Dao.miniProjetDBHelper;
 import com.mz.miniprojetandroid.Models.Medicament;
 import com.mz.miniprojetandroid.R;
@@ -56,7 +57,7 @@ public class Medicaments extends AppCompatActivity {
         Spinner spinner = (Spinner) MenuItemCompat.getActionView(item);
 
         final ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.filterOptions, android.R.layout.simple_spinner_item);
+                R.array.filterMedOptions, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
 
@@ -85,6 +86,9 @@ public class Medicaments extends AppCompatActivity {
             case R.id.addMenu:
                 goToAddUserActivity();
                 return true;
+            case R.id.NvMenu:
+                goToANvActivity();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -92,6 +96,10 @@ public class Medicaments extends AppCompatActivity {
 
     private void goToAddUserActivity(){
         Intent intent = new Intent(Medicaments.this, AddMedicament.class);
+        startActivity(intent);
+    }
+    private void goToANvActivity(){
+        Intent intent = new Intent(Medicaments.this, Navigateur.class);
         startActivity(intent);
     }
 

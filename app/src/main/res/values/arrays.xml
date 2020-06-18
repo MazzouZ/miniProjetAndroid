@@ -6,4 +6,9 @@
         <item>nom</item>
         <item>email</item>
     </string-array>
+    <string-array name="filterMedOptions">
+        <item></item>
+        <item>libelle</item>
+        <item>categorie</item>
+    </string-array>
 </resources>

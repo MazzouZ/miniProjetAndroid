@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:orientation="vertical"
-    android:padding="15dp" android:layout_height="112dp">
+    android:padding="15dp" android:layout_height="130dp">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
@@ -10,7 +10,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="97dp"
+            android:layout_height="128dp"
             android:orientation="vertical"
             android:padding="5dp">
 
